@@ -29,7 +29,21 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar :clipped-left="clipped" fixed app>
+    <v-app-bar :clipped-left="clipped" fixed app
+      color="indigo darken-4"
+      dark
+    >
+    <v-img
+    class="mx-2"
+    src="https://staging.z1mobile.com/assets/Z1app.png"
+    max-height="40"
+    max-width="40"
+    contain
+  ></v-img>
+
+  <v-toolbar-title class="ml-2">
+    LMS
+  </v-toolbar-title>
       <v-app-bar-nav-icon
         @click.stop="
           if (drawer) {
