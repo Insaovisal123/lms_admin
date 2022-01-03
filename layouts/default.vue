@@ -33,7 +33,7 @@
       </v-list>
     </v-navigation-drawer>
     <v-app-bar :clipped-left="clipped" fixed app
-      color="indigo darken-4"
+      color="blue darken-3"
       dark
     >
     <v-img
