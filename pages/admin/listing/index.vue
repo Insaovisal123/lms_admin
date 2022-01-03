@@ -5,6 +5,7 @@
         <v-card-actions>
           <back-btn />
           <v-spacer />
+          <create-btn path="/admin/listing" />
           <reload-btn path="listings" />
         </v-card-actions>
       </v-card>
@@ -56,6 +57,8 @@ import backBtn from '@/components/button/back'
 import reloadBtn from '@/components/button/reload'
 import deleteBtn from '@/components/button/delete'
 import filterBtn from '@/components/button/filter'
+import createBtn from '@/components/button/create'
+
 
 export default {
   components: {
@@ -64,6 +67,7 @@ export default {
     reloadBtn,
     deleteBtn,
     filterBtn,
+    createBtn
   },
   async fetch({ store }) {
     if (store.state.listings.list.length === 0) {
