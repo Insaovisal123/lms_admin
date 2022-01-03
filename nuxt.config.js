@@ -6,8 +6,8 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - crm-backend',
-    title: 'crm-backend',
+    titleTemplate: '%s - Backend',
+    title: 'LMS',
     htmlAttrs: {
       lang: 'en'
     },
