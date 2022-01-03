@@ -11,6 +11,25 @@
       permanent
     >
       <v-list>
+        <v-list-item>
+          <v-list-item-avatar>
+            <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
+          </v-list-item-avatar>
+        </v-list-item>
+        
+        <v-list-item link>
+          <v-list-item-content>
+            <v-list-item-title class="text-h6">
+              John Leider
+            </v-list-item-title>
+            <v-list-item-subtitle>john@vuetifyjs.com</v-list-item-subtitle>
+          </v-list-item-content>
+
+          <v-list-item-action>
+            <v-icon>mdi-menu-down</v-icon>
+          </v-list-item-action>
+        </v-list-item>
+
         <v-list-item
           v-for="(item, i) in items"
           :key="i"
@@ -31,6 +50,13 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+      <template v-slot:append>
+        <div class="pa-2">
+          <v-btn block>
+            Logout
+          </v-btn>
+        </div>
+      </template>
     </v-navigation-drawer>
     <v-app-bar :clipped-left="clipped" fixed app
       color="blue darken-3"
