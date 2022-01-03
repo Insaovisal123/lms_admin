@@ -5,8 +5,8 @@
         <v-card-actions>
           <back-btn />
           <v-spacer />
-          <create-btn path="/admin/lead" />
-          <reload-btn path="leads" />
+          <create-btn path="/admin/contact" />
+          <reload-btn path="contacts" />
         </v-card-actions>
       </v-card>
     </p>
@@ -33,7 +33,7 @@
         <v-data-table
           class="table-cursor"
           :headers="headers"
-          :items="leads"
+          :items="contacts"
           :items-per-page="10"
           :search="filter.search"
           @click:row="(item) => show(item.id)"
@@ -42,8 +42,8 @@
             <v-chip @click.stop="user(item.userId)">{{ item.userId }}</v-chip>
           </template>
           <template v-slot:[`item.actions`]="{ item }">
-            <edit-btn :id="item.id" path="lead" small />
-            <delete-btn :id="item.id" path="lead" :item="item" small />
+            <edit-btn :id="item.id" path="contact" small />
+            <delete-btn :id="item.id" path="contact" :item="item" small />
           </template>
         </v-data-table>
       </v-card>
@@ -72,8 +72,8 @@ export default {
     filterBtn,
   },
   async fetch({ store }) {
-    if (store.state.leads.list.length === 0) {
-      await store.dispatch('leads/fetchList')
+    if (store.state.contacts.list.length === 0) {
+      await store.dispatch('contacts/fetchList')
     }
   },
   data() {
@@ -85,7 +85,6 @@ export default {
       headers: [
         {
           text: 'ID',
-          align: 'left',
           value: 'id',
         },
         { text: 'Salutation', value: 'salutation' },
@@ -101,16 +100,16 @@ export default {
     }
   },
   computed: {
-    leads() {
-      return this.$store.getters['leads/list']
+    contacts() {
+      return this.$store.getters['contacts/list']
     },
   },
   methods: {
     show(id) {
-      this.$router.push(`/admin/lead/${id}`)
+      this.$router.push(`/admin/contact/${id}`)
     },
     user(id) {
-      this.$router.push(`admin/users/${id}`)
+      this.$router.push(`admin/contacts/${id}`)
     },
   },
 }

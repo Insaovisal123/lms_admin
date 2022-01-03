@@ -95,7 +95,7 @@ export default {
         {
           icon: 'mdi-account-arrow-right',
           title: "Contact",
-          to: '/admin/lead',
+          to: '/admin/contact',
           exact: false,
         },
         {

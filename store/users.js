@@ -48,7 +48,7 @@ export const actions = {
   },
   async create({ commit }, item) {
     const response = await this.$axios
-      .$post(`${baseUrl}/`, item)
+      .$post(`${baseUrl}/create`, item)
       .catch((err) => {
         throw err
       })

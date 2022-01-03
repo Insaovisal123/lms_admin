@@ -10,17 +10,15 @@
           >
           <ValidationProvider
             v-slot="{ errors }"
-            name='status'
+            name='salutation'
             rules="required"
           >
             <v-select
-              v-model="lead.status"
+              v-model="contact.salutation"
               label='Salutation'
               :items="salutation"
               :error-messages="errors"
               data-vv-name="select"
-              required
-              outlined
             ></v-select>
           </ValidationProvider>
           </v-col>
@@ -30,14 +28,13 @@
             md="6">
             <ValidationProvider
               v-slot="{ errors }"
-              name='first_name'
+              name='first name'
               rules="required|regex:^[a-zA-Z0-9\s]*$"
             >
               <v-text-field
-                v-model="lead.first_name"
+                v-model="contact.first_name"
                 label='First Name'
                 :error-messages="errors"
-                outlined
               ></v-text-field>
             </ValidationProvider>
           </v-col>
@@ -48,14 +45,13 @@
           >
             <ValidationProvider
               v-slot="{ errors }"
-              name='last_name'
+              name='last name'
               rules="required"
             >
               <v-text-field
-                v-model="lead.last_name"
+                v-model="contact.last_name"
                 label='Last Name'
                 :error-messages="errors"
-                outlined
               ></v-text-field>
             </ValidationProvider>
           </v-col>
@@ -66,33 +62,80 @@
           >
           <ValidationProvider
             v-slot="{ errors }"
-            name='status'
-            rules="required"
+            name='gender'
           >
             <v-select
-              v-model="lead.status"
+              v-model="contact.gender"
               label='Gender'
-              :items="status"
+              :items="gender"
               :error-messages="errors"
               data-vv-name="select"
-              required
-              outlined
+              require
             ></v-select>
           </ValidationProvider>
           </v-col>
 
           <v-col
             cols="12"
-            md="6">
+            md="6"
+          >
+            <v-menu
+              ref="menu"
+              v-model="menu"
+              :close-on-content-click="false"
+              :return-value.sync="date"
+              transition="scale-transition"
+              offset-y
+              min-width="auto"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                  v-model="contact.date_of_birth"
+                  label="Date of Birth"
+                  readonly
+                  v-bind="attrs"
+                  v-on="on"
+                  prepend-icon="mdi-calendar"
+                ></v-text-field>
+              </template>
+              <v-date-picker
+                v-model="contact.date_of_birth"
+                no-title
+                scrollable
+              >
+                <v-spacer></v-spacer>
+                <v-btn
+                  text
+                  color="primary"
+                  @click="menu = false"
+                >
+                  Cancel
+                </v-btn>
+                <v-btn
+                  text
+                  color="primary"
+                  @click="$refs.menu.save(date)"
+                >
+                  OK
+                </v-btn>
+              </v-date-picker>
+            </v-menu>
+          </v-col>
+
+          <v-col
+            cols="12"
+            md="6"
+          >
             <ValidationProvider
               v-slot="{ errors }"
-              name='first_name'
+              name='mobile phone'
+              rules="required"
             >
               <v-text-field
-                v-model="lead.first_name"
-                label='Date of Birth'
+                v-model="contact.mobile_phone"
+                label='Mobile Phone'
+                prepend-icon="mdi-phone-classic"
                 :error-messages="errors"
-                outlined
               ></v-text-field>
             </ValidationProvider>
           </v-col>
@@ -103,65 +146,69 @@
           >
             <ValidationProvider
               v-slot="{ errors }"
-              name='phone'
-              rules="required"
+              name='nationality'
             >
-              <v-text-field
-                v-model="lead.phone"
-                label='Phone'
+              <v-select
+                v-model="contact.nationality"
+                label='Nationality'
+                :items="nationality"
                 :error-messages="errors"
-                outlined
-              ></v-text-field>
+                data-vv-name="select"
+              ></v-select>
             </ValidationProvider>
           </v-col>
+
           <v-col
             cols="12"
             md="6"
           >
             <ValidationProvider
               v-slot="{ errors }"
-              name='amount'
-              rules="required|regex:^[0-9\s]*$"
+              name='email'
+              rules="required|email"
             >
               <v-text-field
-                v-model="lead.amount"
-                label='Amount'
+                v-model="contact.email"
+                label='Email'
+                prepend-icon="mdi-email"
                 :error-messages="errors"
-                prefix="$"
-                outlined
               ></v-text-field>
             </ValidationProvider>
           </v-col>
+
           <v-col
             cols="12"
             md="6"
           >
             <ValidationProvider
               v-slot="{ errors }"
-              name='description'
-              rules="required"
+              name='identity card number'
             >
               <v-text-field
-                v-model="lead.description"
-                label='Description'
+                v-model="contact.identity_card_number"
+                label='Identity Card Number'
                 :error-messages="errors"
-                outlined
               ></v-text-field>
             </ValidationProvider>
           </v-col>
+
+          <v-col
+            cols="12"
+            md="6"
+          >
+            <ValidationProvider
+              v-slot="{ errors }"
+              name='Address'
+            >
+              <v-text-field
+                v-model="contact.address"
+                label='Address'
+                :error-messages="errors"
+              ></v-text-field>
+            </ValidationProvider>
+          </v-col>
+
         </v-row>
-
-        <!-- <ValidationProvider
-          v-slot="{ errors }"
-          name='status'
-          rules="required|regex:^[a-zA-Z0-9\s]*$"
-        >
-          <v-text-field
-            v-model="lead.status"
-            label='Status'
-            :error-messages="errors"
-          ></v-text-field>
-        </ValidationProvider> -->
       </v-form>
     </v-card-text>
     <v-card-actions>
@@ -180,13 +227,15 @@ export default {
     ValidationProvider,
   },
   props: {
-    lead: {
+    contact: {
       type: Object,
       required: true,
     },
   },
   data: () => ({
-    status: [
+    date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+    menu: false,
+    gender: [
       '-',
       'Male',
       'Female',
@@ -197,6 +246,15 @@ export default {
       'Mr',
       'Ms',
       'Dr'
+    ],
+    nationality: [
+      '-',
+      'Cambodian',
+      'Chinese',
+      'Indonesian',
+      'Malaysian',
+      'Singaporean',
+      'Vietnamese'
     ],
   }),
   methods: {

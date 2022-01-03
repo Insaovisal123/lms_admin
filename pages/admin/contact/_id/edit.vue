@@ -4,17 +4,17 @@
       <v-card>
         <v-card-actions>
           <back-btn />
-          <list-btn path="/admin/lead" />
+          <list-btn path="/admin/contact" />
           <v-spacer />
-          <delete-btn :id="lead.id" path="lead" />
-          <reload-btn :id="lead.id" path="leads" @reloaded="reloaded" />
+          <delete-btn :id="contact.id" path="contact" />
+          <reload-btn :id="contact.id" path="contacts" @reloaded="reloaded" />
         </v-card-actions>
       </v-card>
     </p>
     <p>
       <v-card>
         <v-card-title>edit</v-card-title>
-        <lead-form :lead="lead" @save="save" />
+        <contact-form :contact="contact" @save="save" />
       </v-card>
     </p>
   </div>
@@ -26,7 +26,7 @@ import backBtn from '@/components/button/back'
 import listBtn from '@/components/button/list'
 import deleteBtn from '@/components/button/delete'
 import reloadBtn from '@/components/button/reload'
-import leadForm from '@/components/form/lead'
+import contactForm from '@/components/form/contact'
 
 export default {
   components: {
@@ -34,7 +34,7 @@ export default {
     listBtn,
     deleteBtn,
     reloadBtn,
-    leadForm,
+    contactForm,
   },
   // async fetch({ store }) {
   //   if (store.state.posts.list.length === 0) {
@@ -43,33 +43,33 @@ export default {
   // },
   data() {
     return {
-      lead: {
+      contact: {
         id: -1,
       },
     }
   },
   computed: {
     ...mapGetters({
-      getById: 'leads/getById',
+      getById: 'contacts/getById',
     }),
   },
   // mounted() {
   //   this.post = Object.assign({}, this.getById(this.$route.params.id))
   // },
   async mounted() {
-    if (this.$store.state.leads.list.length === 0) {
+    if (this.$store.state.contacts.list.length === 0) {
       await this.fetchList()
     }
-    this.lead = Object.assign({}, this.getById(this.$route.params.id))
+    this.contact = Object.assign({}, this.getById(this.$route.params.id))
   },
   methods: {
-    ...mapActions('leads', ['fetchList']),
+    ...mapActions('contacts', ['fetchList']),
     reloaded(item) {
-      this.lead = item
+      this.contact = item
     },
     async save() {
-      await this.$store.dispatch('leads/update', this.lead)
-      this.$router.push(`/admin/lead/${this.lead.id}`)
+      await this.$store.dispatch('contacts/update', this.contact)
+      this.$router.push(`/admin/contact/${this.contact.id}`)
     },
   },
 }

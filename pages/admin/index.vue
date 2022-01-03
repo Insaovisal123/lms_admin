@@ -5,7 +5,7 @@
         <material-stats-card
             color="info"
             icon="mdi-account-arrow-right"
-            title="Leads"
+            title="Contacts"
             value="245"
             sub-icon="mdi-currency-usd"
             sub-text="123,000"
