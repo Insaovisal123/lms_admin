@@ -10,13 +10,13 @@
           >
           <ValidationProvider
             v-slot="{ errors }"
-            name='status'
+            name='Property Owner'
             rules="required"
           >
             <v-select
-              v-model="lead.status"
+              v-model="deal.property_owner"
               label='Property Owner'
-              :items="salutation"
+              :items="property_owner"
               :error-messages="errors"
               data-vv-name="select"
               required
@@ -31,13 +31,13 @@
           >
           <ValidationProvider
             v-slot="{ errors }"
-            name='status'
+            name='type'
             rules="required"
           >
             <v-select
-              v-model="lead.status"
+              v-model="deal.type"
               label='Type'
-              :items="salutation"
+              :items="record_type"
               :error-messages="errors"
               data-vv-name="select"
               required
@@ -51,7 +51,7 @@
             md="6"
           >
           <v-checkbox
-            v-model="checkbox1"
+            v-model="deal.is_sale"
             :label="`For sale`"
           ></v-checkbox>
           </v-col>
@@ -61,7 +61,7 @@
             md="6"
           >
           <v-checkbox
-            v-model="checkbox2"
+            v-model="deal.is_rent"
             :label="`For rent`"
           ></v-checkbox>
           </v-col>
@@ -72,12 +72,12 @@
           >
             <ValidationProvider
               v-slot="{ errors }"
-              name='amount'
+              name='sale_price'
               rules="required|regex:^[0-9\s]*$"
             >
               <v-text-field
-                v-model="lead.amount"
-                label='Sale Price'
+                v-model="deal.sale_price"
+                label='Sale price'
                 :error-messages="errors"
                 prefix="$"
                 outlined
@@ -91,12 +91,12 @@
           >
             <ValidationProvider
               v-slot="{ errors }"
-              name='amount'
+              name='rent_price'
               rules="required|regex:^[0-9\s]*$"
             >
               <v-text-field
-                v-model="lead.amount"
-                label='Rent Price'
+                v-model="deal.rent_price"
+                label='Rent price'
                 :error-messages="errors"
                 prefix="$"
                 outlined
@@ -110,11 +110,11 @@
           >
             <ValidationProvider
               v-slot="{ errors }"
-              name='amount'
+              name='width'
               rules="required|regex:^[0-9\s]*$"
             >
               <v-text-field
-                v-model="lead.amount"
+                v-model="deal.width"
                 label='Width'
                 :error-messages="errors"
                 outlined
@@ -128,11 +128,11 @@
           >
             <ValidationProvider
               v-slot="{ errors }"
-              name='amount'
+              name='length'
               rules="required|regex:^[0-9\s]*$"
             >
               <v-text-field
-                v-model="lead.amount"
+                v-model="deal.length"
                 label='Length'
                 :error-messages="errors"
                 outlined
@@ -146,17 +146,19 @@
           >
             <ValidationProvider
               v-slot="{ errors }"
-              name='amount'
+              name='area'
               rules="required|regex:^[0-9\s]*$"
             >
               <v-text-field
-                v-model="lead.amount"
+                v-model="deal.area"
                 label='Area'
                 :error-messages="errors"
                 outlined
               ></v-text-field>
             </ValidationProvider>
           </v-col>
+
+
           <v-col
             cols="12"
             md="12"
@@ -164,9 +166,11 @@
             <v-textarea
               name="input-7-1"
               label="Address"
+              v-model="deal.address"
               prepend-icon="mdi-map-marker"
             ></v-textarea>
           </v-col>
+
         </v-row>
       </v-form>
     </v-card-text>
@@ -186,29 +190,32 @@ export default {
     ValidationProvider,
   },
   props: {
-    lead: {
+    deal: {
       type: Object,
       required: true,
     },
   },
   data: () => ({
     property_owner: [
-      '-',
-      'Male',
-      'Female',
-      'Other'
+      '1',
+      '2',
+      '3',
+      '4'
     ],
-    status: [
-      '-',
-      'Male',
-      'Female',
-      'Other'
+    record_type: [
+      'Land',
     ],
-    salutation: [
-      '-',
-      'Mr',
-      'Ms',
-      'Dr'
+    stage: [
+      'Qualification',
+      'Required Analysis',
+      'Propose Listing',
+      'Nigociation',
+      'Deal Close',
+      'Deal Fail',
+    ],
+    transaction_type: [
+      'Buy',
+      'Sell',
     ],
     checkbox1: true,
     checkbox2: false,

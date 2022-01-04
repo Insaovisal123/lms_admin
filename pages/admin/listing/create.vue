@@ -4,7 +4,7 @@
       <v-card>
         <v-card-actions>
           <back-btn />
-          <list-btn path="/admin/contact" />
+          <list-btn path="/admin/listing" />
           <v-spacer />
         </v-card-actions>
       </v-card>
@@ -12,7 +12,7 @@
     <p>
       <v-card>
         <v-card-title>Create</v-card-title>
-        <contact-form :contact="contact" @save="create" />
+        <property-form :deal="deal" @save="create" />
       </v-card>
     </p>
   </div>
@@ -21,27 +21,27 @@
 <script>
 import backBtn from '@/components/button/back'
 import listBtn from '@/components/button/list'
-import contactForm from '@/components/form/property'
+import propertyForm from '@/components/form/property'
 
 export default {
   components: {
     backBtn,
     listBtn,
-    contactForm,
+    propertyForm,
   },
   data() {
     return {
-      contact: {
+      deal: {
         title: '',
-        contactId: '',
+        dealId: '',
         completed: false,
       },
     }
   },
   methods: {
     async create() {
-      await this.$store.dispatch('contacts/create', this.contact)
-      this.$router.push('/admin/contact')
+      await this.$store.dispatch('listings/create', this.deal)
+      this.$router.push('/admin/listing')
     },
   },
 }
