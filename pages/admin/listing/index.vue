@@ -42,6 +42,7 @@
             <v-chip @click.stop="user(item.userId)">{{ item.userId }}</v-chip>
           </template>
           <template v-slot:[`item.actions`]="{ item }">
+            <edit-btn :id="item.id" path="listing" small />
             <delete-btn :id="item.id" path="listing" :item="item" small />
           </template>
         </v-data-table>
@@ -58,6 +59,7 @@ import reloadBtn from '@/components/button/reload'
 import deleteBtn from '@/components/button/delete'
 import filterBtn from '@/components/button/filter'
 import createBtn from '@/components/button/create'
+import editBtn from '@/components/button/edit'
 
 
 export default {
@@ -67,7 +69,8 @@ export default {
     reloadBtn,
     deleteBtn,
     filterBtn,
-    createBtn
+    createBtn,
+    editBtn
   },
   async fetch({ store }) {
     if (store.state.listings.list.length === 0) {
