@@ -69,7 +69,7 @@ export default {
     },
     async save() {
       await this.$store.dispatch('listings/update', this.deal)
-      this.$router.push(`/admin/deal/${this.deal.id}`)
+      this.$router.push(`/admin/listing/${this.deal.id}`)
     },
   },
 }
