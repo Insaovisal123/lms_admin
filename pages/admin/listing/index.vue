@@ -62,9 +62,12 @@ import filterBtn from '@/components/button/filter'
 import createBtn from '@/components/button/create'
 import editBtn from '@/components/button/edit'
 import showBtn from '@/components/button/show'
+import { mapGetters } from 'vuex'
+
 
 
 export default {
+  middleware: 'auth',
   components: {
     deleteConfirm,
     backBtn,
@@ -109,6 +112,7 @@ export default {
     listings() {
       return this.$store.getters['listings/list']
     },
+    ...mapGetters(['loggedInUser'])
   },
   methods: {
     show(id) {

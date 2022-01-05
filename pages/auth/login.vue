@@ -1,125 +1,137 @@
 <template>
-  <fragment>
-    <h2 class="text-center font-weight-bold text-secondary">Login</h2>
-    <validation-observer ref="form">
-      <b-form @submit.prevent="handleSubmit">
-        <b-form-group
-          id="input-group-email"
-          label="Email"
-          label-for="input-email"
+<ValidationObserver v-slot="{ invalid }">
+<v-card class="elevation-1 pa-3">
+  <v-card-text>
+    <div class="layout column align-center">
+      <img src="https://staging.z1mobile.com/assets/Z1app.png" alt="ZILLION HOLDING" width="180" height="180">
+      <h1 class="flex my-4">Login</h1>
+    </div>
+    <v-form>
+      <!-- <v-text-field
+        append-icon="mdi-account"
+        name="login"
+        label="Login"
+        type="text"
+        v-model="user.email"
+      /> -->
+      <v-col
+        cols="12"
+        md="12"
+      >
+        <ValidationProvider
+          v-slot="{ errors }"
+          name='email'
+          rules="required|email"
         >
-          <validation-provider
-            v-slot="{ errors }"
-            name="email"
-            rules="required"
-          >
-            <b-form-input
-              id="input-email"
-              v-model="form.email"
-              type="email"
-              required
-              placeholder="Enter email"
-              :class="errors.length ? 'border-danger' : ''"
-            >
-            </b-form-input>
-            <span v-if="errors.length" class="text-danger">
-              {{ errors[0] }}
-            </span>
-          </validation-provider>
-        </b-form-group>
-
-        <b-form-group
-          id="input-group-password"
-          label="Password"
-          label-for="input-password"
+          <v-text-field
+            v-model="user.email"
+            append-icon="mdi-account"
+            label='Email'
+            :error-messages="errors"
+            outlined
+          ></v-text-field>
+        </ValidationProvider>
+      </v-col>
+      <v-col
+        cols="12"
+        sm="12"
+      >
+      <ValidationProvider
+          v-slot="{ errors }"
+          name='password'
+          rules="required"
         >
-          <validation-provider
-            v-slot="{ errors }"
-            name="password"
-            type="password"
-            rules="required|min:6"
-          >
-            <b-form-input
-              id="input-password"
-              v-model="form.password"
-              type="password"
-              required
-              placeholder="Enter password"
-              :class="errors.length ? 'border-danger' : ''"
-            >
-            </b-form-input>
-            <span v-if="errors.length" class="text-danger">
-              {{ errors[0] }}
-            </span>
-          </validation-provider>
-        </b-form-group>
-        <b-button type="submit" block variant="outline-secondary mt-4">Login</b-button>
-        <div class="text-center mt-2">
-          <b-link href="/auth/register" class="text-secondary">Not having an account?</b-link>
-        </div>
-      </b-form>
-    </validation-observer>
-  </fragment>
+          <v-text-field
+            v-model="user.password"
+            label='Password'
+            :append-icon="show_pass ? 'mdi-eye' : 'mdi-eye-off'"
+            :error-messages="errors"
+            :type="show_pass ? 'text' : 'password'"
+            @click:append="show_pass = !show_pass"
+            outlined
+          ></v-text-field>
+        </ValidationProvider>
+      </v-col>
+    </v-form>
+  </v-card-text>
+  <v-card-actions>
+    <v-spacer></v-spacer>
+    <v-btn block color="primary" :disabled="invalid" @click="login" :loading="loading">Login</v-btn>
+  </v-card-actions>
+</v-card>
+</ValidationObserver>
 </template>
 
 <script>
 import Noty from 'noty';
-import { ValidationObserver, ValidationProvider } from 'vee-validate';
-import { mapGetters } from 'vuex';
+import { ValidationObserver, ValidationProvider } from "vee-validate";
+
 export default {
   layout: 'auth',
   middleware: 'guest',
   components: {
     ValidationObserver,
-    ValidationProvider,
+    ValidationProvider
   },
   data() {
     return {
-      form: {}
+      form: {
+        disabled: true,
+      },
+      confimation: '',
+      loading: false,
+      show_pass: false,
+      error: false,
+      showResult: false,
+      result: '',
+      user:{
+        email: '',
+        password: '',
+      },
+      rules: {
+        required: value => !!value || 'Required.'
+      }
     };
   },
-  computed: {
-    ...mapGetters(['isAuthenticated', 'loggedInUser'])
-  },
   methods: {
-    handleSubmit() {
-      this.$refs.form.validate()
-        .then(async success => {
-          if (!success) {
+    async login() {
+    console.log(this.$auth);
+
+      await this.$auth.loginWith('local', { data: this.user })
+        .then(({ status }) => {
+          if (status === 200) {
             new Noty({
-              text: 'Invild data!',
-              type: 'error',
+              text: `Login success!`,
+              type: 'success',
               timeout: 2000
             }).show();
-            return false;
+          }
+        })
+        .catch(err => {
+          let message = 'Error!';
+          if (err.response.data && err.response.data.detail) {
+            message = err.response.data.detail.message;
           }
 
-          const vm = this;
-          await this.$auth.loginWith('local', { data: this.form })
-            .then(({ status }) => {
-              if (status === 200) {
-                new Noty({
-                  text: `Welcome user <b>${this.loggedInUser.first_name} ${this.loggedInUser.last_name}</b>!`,
-                  type: 'success',
-                  timeout: 2000
-                }).show();
-              }
-            })
-            .catch(err => {
-              let message = 'Error!';
-              if (err.response.data && err.response.data.errors) {
-                vm.$refs.form.setErrors(err.response.data.errors);
-                message = err.response.data.message;
-              }
-
-              new Noty({
-                text: message,
-                type: 'error',
-                timeout: 2000
-              }).show();
-            });
+          new Noty({
+            text: message,
+            type: 'error',
+            timeout: 2000
+          }).show();
         });
-    }
+    },
   }
 }
 </script>
+
+<style scoped lang="css">
+  #login {
+    height: 50%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: "";
+    z-index: 0;
+  }
+</style>

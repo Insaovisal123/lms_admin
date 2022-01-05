@@ -41,7 +41,7 @@ export default {
   ],
 
   axios: {
-    baseURL: 'http://localhost:8080',
+    baseURL: 'http://0.0.0.0:8001',
     credential: true,
   },
 
@@ -50,19 +50,19 @@ export default {
       local: {
         endpoints: {
           login: {
-            url: 'login',
+            url: 'user/login',
             method: 'post',
             propertyName: 'token'
           },
           user: {
-            url: 'user-profile',
+            url: 'user/user-profile',
             method: 'get',
             propertyName: false,
             autoFetch: false,
           },
           logout: {
-            url: 'user/logout',
-            method: 'post',
+            url: '/user/logout',
+            method: 'get',
           },
         }
       }
@@ -70,8 +70,8 @@ export default {
     rewriteRedirects: false,
     redirect: {
       login: "/auth/login",
-      logout: "/auth/login",
-      home: "/admin/profile",
+      // logout: "/auth/login",
+      home: "/admin",
     },
   },
 
