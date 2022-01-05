@@ -37,6 +37,13 @@ export const mutations = {
       }
     })
   },
+  login(state, data) {
+    state.list.forEach((item, index) => {
+      if (item.id === Number(data.id)) {
+        state.list.splice(index, 1, data)
+      }
+    })
+  },
 }
 
 export const actions = {
@@ -68,4 +75,10 @@ export const actions = {
     })
     commit('delete', id)
   },
+  async login({ commit }, item) {
+    await this.$axios.$post(`http://0.0.0.0:8001/user/login`, item).catch((err) => {
+      throw err
+    })
+    commit('login', item)
+  }
 }

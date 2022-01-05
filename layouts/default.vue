@@ -20,9 +20,9 @@
         <v-list-item link>
           <v-list-item-content>
             <v-list-item-title class="text-h6">
-              John Leider
+              {{ loggedInUser.first_name }} {{ loggedInUser.last_name }}
             </v-list-item-title>
-            <v-list-item-subtitle>john@vuetifyjs.com</v-list-item-subtitle>
+            <v-list-item-subtitle>{{ loggedInUser.email }}</v-list-item-subtitle>
           </v-list-item-content>
 
           <v-list-item-action>
@@ -52,9 +52,15 @@
       </v-list>
       <template v-slot:append>
         <div class="pa-2">
-          <v-btn block>
+          <!-- <v-btn block>
             Logout
-          </v-btn>
+          </v-btn> -->
+          <v-btn
+              block
+              @click="logout"
+            >
+              Logout
+            </v-btn>
         </div>
       </template>
     </v-navigation-drawer>
@@ -101,7 +107,10 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
+  middleware: 'authenticated',
   data() {
     return {
       title: require('../package.json').appName,
@@ -145,5 +154,14 @@ export default {
       ],
     }
   },
+   computed: {
+    ...mapGetters(['loggedInUser', 'isAuthenticated'])
+  },
+  methods: {
+    async logout() {
+      await this.$auth.logout()
+      this.$router.push(`/auth/login`)
+    }
+  }
 }
 </script>

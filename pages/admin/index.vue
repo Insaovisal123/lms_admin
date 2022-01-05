@@ -44,3 +44,14 @@
     </v-row>
   </v-container>
 </template>
+
+<script>
+import { mapGetters } from 'vuex'
+
+export default {
+  middleware: 'auth',
+  computed: {
+    ...mapGetters(['loggedInUser'])
+  },
+}
+</script>
