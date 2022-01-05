@@ -36,6 +36,8 @@
           :items="contacts"
           :items-per-page="10"
           :search="filter.search"
+          :sort-by.sync="sortBy"
+          :sort-desc.sync="sortDesc"
           @click:row="(item) => show(item.id)"
         >
           <template v-slot:[`item.userId`]="{ item }">
@@ -81,6 +83,8 @@ export default {
   },
   data() {
     return {
+      sortBy: "id",
+      sortDesc: false,
       filter: {
         visible: false,
         search: '',

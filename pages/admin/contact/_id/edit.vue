@@ -69,7 +69,7 @@ export default {
     },
     async save() {
       await this.$store.dispatch('contacts/update', this.contact)
-      this.$router.push(`/admin/contact/${this.contact.id}`)
+      this.$router.push(`/admin/contact`)
     },
   },
 }

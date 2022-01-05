@@ -69,7 +69,7 @@ export default {
     },
     async save() {
       await this.$store.dispatch('users/update', this.user)
-      this.$router.push(`/admin/user/${this.user.id}`)
+      this.$router.push(`/admin/user`)
     },
   },
 }

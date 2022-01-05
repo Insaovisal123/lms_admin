@@ -35,6 +35,8 @@
           :headers="headers"
           :items="loancontracts"
           :items-per-page="10"
+          :sort-by.sync="sortBy"
+          :sort-desc.sync="sortDesc"
           :search="filter.search"
           @click:row="(item) => show(item.id)"
         >
@@ -89,6 +91,8 @@ export default {
   },
   data() {
     return {
+      sortBy: "id",
+      sortDesc: false,
       filter: {
         visible: false,
         search: '',

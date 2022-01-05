@@ -35,11 +35,31 @@
           :headers="headers"
           :items="listings"
           :items-per-page="10"
+          :sort-by.sync="sortBy"
+          :sort-desc.sync="sortDesc"
           :search="filter.search"
           @click:row="(item) => show(item.id)"
         >
           <template v-slot:[`item.userId`]="{ item }">
             <v-chip @click.stop="user(item.userId)">{{ item.userId }}</v-chip>
+          </template>
+          <template 
+            v-slot:[`item.is_sale`]="{ item }">
+            <v-chip 
+              :color="getColor(item.status)"
+              dark
+              > 
+                {{ getIsSale(item.is_sale) }}
+              </v-chip>
+          </template>
+          <template 
+            v-slot:[`item.is_rent`]="{ item }">
+            <v-chip 
+              :color="getColor(item.status)"
+              dark
+              > 
+                {{ getIsRent(item.is_rent) }}
+              </v-chip>
           </template>
           <template v-slot:[`item.actions`]="{ item }">
             <show-btn :id="item.id" path="listing" small />
@@ -82,26 +102,24 @@ export default {
   },
   data() {
     return {
+      sortBy: "id",
+      sortDesc: false,
       filter: {
         visible: false,
         search: '',
       },
       headers: [
-        {
-          text: 'ID',
-          align: 'left',
-          value: 'id',
-        },
-        { text: 'Property Owner', value: 'property_owner' },
-        { text: 'Type', value: 'type' },
-        { text: 'Sale', value: 'is_sale' },
-        { text: 'Rent', value: 'is_rent' },
-        { text: 'Sale Price', value: 'sale_price' },
-        { text: 'Rent Price', value: 'rent_price' },
-        { text: 'Width', value: 'width' },
-        { text: 'Length', value: 'length' },
-         { text: 'Address', value: 'address' },
-        { text: 'Actions', value: 'actions' },
+        { text: 'ID', align: 'left', value: 'id' },
+        { text: 'Property Owner', align: 'left', value: 'property_owner' },
+        { text: 'Type', align: 'left', value: 'type' },
+        { text: 'Sale', align: 'left', value: 'is_sale' },
+        { text: 'Rent', align: 'left', value: 'is_rent' },
+        { text: 'Sale Price', align: 'left', value: 'sale_price' },
+        { text: 'Rent Price', align: 'left', value: 'rent_price' },
+        { text: 'Width', align: 'left', value: 'width' },
+        { text: 'Length', align: 'left', value: 'length' },
+         { text: 'Address', align: 'left', value: 'address' },
+        { text: 'Actions', align: 'left', value: 'actions' },
       ],
     }
   },
@@ -116,6 +134,19 @@ export default {
     },
     user(id) {
       this.$router.push(`admin/users/${id}`)
+    },
+    getIsSale (is_sale) {
+        if (is_sale == 'True') return 'Yes'
+        else return 'No'
+    },
+    getIsRent (is_rent) {
+        if (is_rent == 'True') return 'Yes'
+        else return 'No'
+    },
+    getColor (status) {
+        if (status == 'True') return 'blue'
+        else if (status == "In Progress") return 'red'
+        else return 'green'
     },
   },
 }

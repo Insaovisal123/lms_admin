@@ -69,7 +69,7 @@ export default {
     },
     async save() {
       await this.$store.dispatch('loancontracts/update', this.loancontract)
-      this.$router.push(`/admin/loancontract/${this.loancontract.id}`)
+      this.$router.push(`/admin/loancontract`)
     },
   },
 }

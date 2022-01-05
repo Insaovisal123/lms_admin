@@ -7,7 +7,7 @@
         </v-card>
 
         <div class="text-right">
-            <p class="body-2 grey--text font-weight-light mb-0" v-text="title" />
+            <p class="body-2 grey--text font-weight-bold mb-0" v-text="title" />
             <h3 class="headline font-weight-light text--primary">
                 {{ value }}
                 <small>{{ smallValue }}</small>

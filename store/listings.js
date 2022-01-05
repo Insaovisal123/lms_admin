@@ -56,7 +56,7 @@ export const actions = {
   },
   async update({ commit }, item) {
     const response = await this.$axios
-      .$put(`${baseUrl}/edit/${item.id}`, item)
+      .$put(`${baseUrl}/${item.id}`, item)
       .catch((err) => {
         throw err
       })
