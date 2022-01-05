@@ -2,16 +2,16 @@
   <v-tooltip bottom>
     <template v-slot:activator="{ on, attrs }">
       <v-btn 
-        color="primary mx-1" 
+        color="success" 
         x-small
         fab
         v-bind="attrs" 
         v-on="on" 
-        @click.stop="edit()">
-        <v-icon :small="small">mdi-pencil</v-icon>
+        @click.stop="show()">
+        <v-icon :small="small">mdi-eye</v-icon>
       </v-btn>
     </template>
-    <span>Edit</span>
+    <span>Show</span>
   </v-tooltip>
 </template>
 
@@ -33,8 +33,8 @@ export default {
     },
   },
   methods: {
-    edit() {
-      this.$router.push(this.path + `/${this.id}/edit`)
+    show() {
+      this.$router.push(this.path + `/${this.id}`)
     },
   },
 }

@@ -7,7 +7,7 @@
           <list-btn path="/admin/user" />
           <v-spacer />
           <delete-btn :id="user.id" path="user" />
-          <reload-btn :id="user.id" path="users" @reloaded="reloaded" />
+          <!-- <reload-btn :id="user.id" path="users" @reloaded="reloaded" /> -->
         </v-card-actions>
       </v-card>
     </p>

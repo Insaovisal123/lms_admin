@@ -133,7 +133,7 @@ export default {
         {
           icon: 'mdi-handshake',
           title: "Loan Contract",
-          to: '/admin/deal',
+          to: '/admin/loancontract',
           exact: false,
         },
         {

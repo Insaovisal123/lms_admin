@@ -6,7 +6,7 @@
           <back-btn />
           <v-spacer />
           <create-btn path="/admin/contact" />
-          <reload-btn path="contacts" />
+          <!-- <reload-btn path="contacts" /> -->
         </v-card-actions>
       </v-card>
     </p>
@@ -42,6 +42,7 @@
             <v-chip @click.stop="user(item.userId)">{{ item.userId }}</v-chip>
           </template>
           <template v-slot:[`item.actions`]="{ item }">
+            <show-btn :id="item.id" path="contact" small />
             <edit-btn :id="item.id" path="contact" small />
             <delete-btn :id="item.id" path="contact" :item="item" small />
           </template>
@@ -57,6 +58,7 @@ import deleteConfirm from '@/components/deleteConfirm.vue'
 import backBtn from '@/components/button/back'
 import createBtn from '@/components/button/create'
 import reloadBtn from '@/components/button/reload'
+import showBtn from '@/components/button/show'
 import editBtn from '@/components/button/edit'
 import deleteBtn from '@/components/button/delete'
 import filterBtn from '@/components/button/filter'
@@ -67,6 +69,7 @@ export default {
     backBtn,
     createBtn,
     reloadBtn,
+    showBtn,
     editBtn,
     deleteBtn,
     filterBtn,

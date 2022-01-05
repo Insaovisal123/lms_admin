@@ -8,7 +8,7 @@
           <v-spacer />
           <edit-btn :id="contact.id" path="/admin/contact" />
           <delete-btn :id="contact.id" path="contact" />
-          <reload-btn :id="contact.id" path="contacts" @reloaded="reloaded" />
+          <!-- <reload-btn :id="contact.id" path="contacts" @reloaded="reloaded" /> -->
         </v-card-actions>
       </v-card>
     </p>
@@ -30,7 +30,7 @@
               <v-card-title>Contact ID: {{contact.id}}</v-card-title>
             </v-img>
 
-            <v-card-subtitle class="pb-0">
+            <v-card-subtitle class="pb-0 ">
               Salutation: <span class="black--text">{{contact.salutation}}</span>
             </v-card-subtitle>
 

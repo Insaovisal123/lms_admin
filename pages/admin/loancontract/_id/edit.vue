@@ -4,17 +4,17 @@
       <v-card>
         <v-card-actions>
           <back-btn />
-          <list-btn path="/admin/deal" />
+          <list-btn path="/admin/loancontract" />
           <v-spacer />
-          <delete-btn :id="deal.id" path="deal" />
-          <reload-btn :id="deal.id" path="deals" @reloaded="reloaded" />
+          <delete-btn :id="loancontract.id" path="loancontract" />
+          <!-- <reload-btn :id="loancontract.id" path="loancontracts" @reloaded="reloaded" /> -->
         </v-card-actions>
       </v-card>
     </p>
     <p>
       <v-card>
         <v-card-title>edit</v-card-title>
-        <deal-form :deal="deal" @save="save" />
+        <loancontract-form :loancontract="loancontract" @save="save" />
       </v-card>
     </p>
   </div>
@@ -26,7 +26,7 @@ import backBtn from '@/components/button/back'
 import listBtn from '@/components/button/list'
 import deleteBtn from '@/components/button/delete'
 import reloadBtn from '@/components/button/reload'
-import dealForm from '@/components/form/deal'
+import loancontractForm from '@/components/form/loancontract'
 
 export default {
   components: {
@@ -34,7 +34,7 @@ export default {
     listBtn,
     deleteBtn,
     reloadBtn,
-    dealForm,
+    loancontractForm,
   },
   // async fetch({ store }) {
   //   if (store.state.posts.list.length === 0) {
@@ -43,33 +43,33 @@ export default {
   // },
   data() {
     return {
-      deal: {
+      loancontract: {
         id: -1,
       },
     }
   },
   computed: {
     ...mapGetters({
-      getById: 'deals/getById',
+      getById: 'loancontracts/getById',
     }),
   },
   // mounted() {
   //   this.post = Object.assign({}, this.getById(this.$route.params.id))
   // },
   async mounted() {
-    if (this.$store.state.deals.list.length === 0) {
+    if (this.$store.state.loancontracts.list.length === 0) {
       await this.fetchList()
     }
-    this.deal = Object.assign({}, this.getById(this.$route.params.id))
+    this.loancontract = Object.assign({}, this.getById(this.$route.params.id))
   },
   methods: {
-    ...mapActions('deals', ['fetchList']),
+    ...mapActions('loancontracts', ['fetchList']),
     reloaded(item) {
-      this.deal = item
+      this.loancontract = item
     },
     async save() {
-      await this.$store.dispatch('deals/update', this.deal)
-      this.$router.push(`/admin/deal/${this.deal.id}`)
+      await this.$store.dispatch('loancontracts/update', this.loancontract)
+      this.$router.push(`/admin/loancontract/${this.loancontract.id}`)
     },
   },
 }

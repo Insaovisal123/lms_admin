@@ -5,8 +5,8 @@
         <v-card-actions>
           <back-btn />
           <v-spacer />
-          <create-btn path="/admin/deal" />
-          <reload-btn path="deals" />
+          <create-btn path="/admin/loancontract" />
+          <!-- <reload-btn path="loancontracts" /> -->
         </v-card-actions>
       </v-card>
     </p>
@@ -33,7 +33,7 @@
         <v-data-table
           class="table-cursor"
           :headers="headers"
-          :items="deals"
+          :items="loancontracts"
           :items-per-page="10"
           :search="filter.search"
           @click:row="(item) => show(item.id)"
@@ -42,8 +42,9 @@
             <v-chip @click.stop="user(item.userId)">{{ item.userId }}</v-chip>
           </template>
           <template v-slot:[`item.actions`]="{ item }">
-            <edit-btn :id="item.id" path="deal" small />
-            <delete-btn :id="item.id" path="deal" :item="item" small />
+            <show-btn :id="item.id" path="loancontract" small />
+            <edit-btn :id="item.id" path="loancontract" small />
+            <delete-btn :id="item.id" path="loancontract" :item="item" small />
           </template>
         </v-data-table>
       </v-card>
@@ -57,6 +58,7 @@ import deleteConfirm from '@/components/deleteConfirm.vue'
 import backBtn from '@/components/button/back'
 import createBtn from '@/components/button/create'
 import reloadBtn from '@/components/button/reload'
+import showBtn from '@/components/button/show'
 import editBtn from '@/components/button/edit'
 import deleteBtn from '@/components/button/delete'
 import filterBtn from '@/components/button/filter'
@@ -67,13 +69,14 @@ export default {
     backBtn,
     createBtn,
     reloadBtn,
+    showBtn,
     editBtn,
     deleteBtn,
     filterBtn,
   },
   async fetch({ store }) {
-    if (store.state.deals.list.length === 0) {
-      await store.dispatch('deals/fetchList')
+    if (store.state.loancontracts.list.length === 0) {
+      await store.dispatch('loancontracts/fetchList')
     }
   },
   data() {
@@ -95,21 +98,22 @@ export default {
         { text: 'Loan Type', value: 'loan_type' },
         { text: 'Request Amount', value: 'request_amount' },
         { text: 'Approved Amount', value: 'approved_amount' },
-        { text: 'Disbursement Date', value: 'disbursement_date' },
-        { text: 'First Collection Date', value: 'first_collection_date' },
-        { text: 'Maturity Date', value: 'maturity_date' },
+        // { text: 'Disbursement Date', value: 'disbursement_date' },
+        // { text: 'First Collection Date', value: 'first_collection_date' },
+        // { text: 'Maturity Date', value: 'maturity_date' },
+        // { text: 'Status', value: 'status' },
         { text: 'Actions', value: 'actions' },
       ],
     }
   },
   computed: {
-    deals() {
-      return this.$store.getters['deals/list']
+    loancontracts() {
+      return this.$store.getters['loancontracts/list']
     },
   },
   methods: {
     show(id) {
-      this.$router.push(`/admin/deal/${id}`)
+      this.$router.push(`/admin/loancontract/${id}`)
     },
     user(id) {
       this.$router.push(`admin/users/${id}`)

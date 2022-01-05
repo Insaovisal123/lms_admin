@@ -2,8 +2,10 @@
   <v-tooltip bottom>
     <template v-slot:activator="{ on, attrs }">
       <v-btn
-        icon
         color="red"
+        x-small
+        fab
+        dark
         v-bind="attrs"
         v-on="on"
         @click.stop="removeConfirm()"

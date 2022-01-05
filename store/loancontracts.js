@@ -1,4 +1,4 @@
-const baseUrl = 'http://0.0.0.0:8001/loan-contract'
+const baseUrl = 'http://0.0.0.0:8001/loancontract'
 
 export const state = () => ({
   list: [],
@@ -48,7 +48,7 @@ export const actions = {
   },
   async create({ commit }, item) {
     const response = await this.$axios
-      .$post(`${baseUrl}/`, item)
+      .$post(`${baseUrl}/create`, item)
       .catch((err) => {
         throw err
       })

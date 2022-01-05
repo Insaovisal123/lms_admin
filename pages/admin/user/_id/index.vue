@@ -8,7 +8,7 @@
           <v-spacer />
           <edit-btn :id="user.id" path="/admin/user" />
           <delete-btn :id="user.id" path="user" />
-          <reload-btn :id="user.id" path="users" @reloaded="reloaded" />
+          <!-- <reload-btn :id="user.id" path="users" @reloaded="reloaded" /> -->
         </v-card-actions>
       </v-card>
     </p>

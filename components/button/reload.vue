@@ -1,8 +1,21 @@
 <template>
   <v-tooltip bottom>
     <template v-slot:activator="{ on, attrs }">
-      <v-btn icon v-bind="attrs" v-on="on" @click.stop="reload()">
+      <!-- <v-btn 
+        color="blue"
+        x-small
+        dark
+        v-bind="attrs" v-on="on" @click.stop="reload()">
         <v-icon>mdi-reload</v-icon>
+      </v-btn> -->
+      <v-btn
+        color="primary"
+        dark
+        v-bind="attrs" 
+        v-on="on" 
+        @click.stop="reload()"
+      >
+      <v-icon>mdi-reload</v-icon>
       </v-btn>
     </template>
     <span>Reload</span>
