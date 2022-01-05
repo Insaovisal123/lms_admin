@@ -15,7 +15,7 @@
         <material-stats-card
             color="green"
             icon="mdi-handshake"
-            title="Deals"
+            title="Loan Contracts"
             value="125"
             sub-icon="mdi-currency-usd"
             sub-text="45,000"
@@ -25,7 +25,7 @@
         <material-stats-card
             color="red"
             icon="mdi-office-building-marker"
-            title="Listings"
+            title="Properties"
             value="97"
             sub-icon="mdi-currency-usd"
             sub-text="175,000"
@@ -35,7 +35,7 @@
         <material-stats-card
             color="orange"
             icon="mdi-account"
-            title="User"
+            title="Users"
             value="40"
             sub-icon="mdi-account"
             sub-text="12 Public User"

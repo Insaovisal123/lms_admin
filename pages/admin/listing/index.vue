@@ -6,7 +6,7 @@
           <back-btn />
           <v-spacer />
           <create-btn path="/admin/listing" />
-          <reload-btn path="listings" />
+          <!-- <reload-btn path="listings" /> -->
         </v-card-actions>
       </v-card>
     </p>
@@ -42,6 +42,7 @@
             <v-chip @click.stop="user(item.userId)">{{ item.userId }}</v-chip>
           </template>
           <template v-slot:[`item.actions`]="{ item }">
+            <show-btn :id="item.id" path="listing" small />
             <edit-btn :id="item.id" path="listing" small />
             <delete-btn :id="item.id" path="listing" :item="item" small />
           </template>
@@ -60,6 +61,7 @@ import deleteBtn from '@/components/button/delete'
 import filterBtn from '@/components/button/filter'
 import createBtn from '@/components/button/create'
 import editBtn from '@/components/button/edit'
+import showBtn from '@/components/button/show'
 
 
 export default {
@@ -70,7 +72,8 @@ export default {
     deleteBtn,
     filterBtn,
     createBtn,
-    editBtn
+    editBtn,
+    showBtn
   },
   async fetch({ store }) {
     if (store.state.listings.list.length === 0) {

@@ -3,49 +3,7 @@
     <v-card-text>
       <v-form>
         <v-row>
-
-          <v-col
-            cols="12"
-            md="6"
-          >
-          <ValidationProvider
-            v-slot="{ errors }"
-            name='Property Owner'
-            rules="required"
-          >
-            <v-select
-              v-model="deal.property_owner"
-              label='Property Owner'
-              :items="property_owner"
-              :error-messages="errors"
-              data-vv-name="select"
-              required
-              outlined
-            ></v-select>
-          </ValidationProvider>
-          </v-col>
-
-          <v-col
-            cols="12"
-            md="6"
-          >
-          <ValidationProvider
-            v-slot="{ errors }"
-            name='type'
-            rules="required"
-          >
-            <v-select
-              v-model="deal.type"
-              label='Type'
-              :items="record_type"
-              :error-messages="errors"
-              data-vv-name="select"
-              required
-              outlined
-            ></v-select>
-          </ValidationProvider>
-          </v-col>
-
+          
           <v-col
             cols="12"
             md="6"
@@ -65,6 +23,43 @@
             :label="`For rent`"
           ></v-checkbox>
           </v-col>
+           
+          <v-col
+            cols="12"
+            md="6"
+          >
+            <ValidationProvider
+              v-slot="{ errors }"
+              name='property owner'
+              rules="required"
+            >
+              <v-text-field
+                v-model="deal.property_owner"
+                label='Property Owner'
+                :error-messages="errors"
+              ></v-text-field>
+            </ValidationProvider>
+          </v-col>
+
+          <v-col
+            cols="12"
+            md="6"
+          >
+          <ValidationProvider
+            v-slot="{ errors }"
+            name='type'
+            rules="required"
+          >
+            <v-select
+              v-model="deal.type"
+              label='Type'
+              :items="record_type"
+              :error-messages="errors"
+              data-vv-name="select"
+              required
+            ></v-select>
+          </ValidationProvider>
+          </v-col>
 
           <v-col
             cols="12"
@@ -73,14 +68,14 @@
             <ValidationProvider
               v-slot="{ errors }"
               name='sale_price'
-              rules="required|regex:^[0-9\s]*$"
+              type="number"
             >
               <v-text-field
                 v-model="deal.sale_price"
                 label='Sale price'
                 :error-messages="errors"
                 prefix="$"
-                outlined
+
               ></v-text-field>
             </ValidationProvider>
           </v-col>
@@ -92,14 +87,14 @@
             <ValidationProvider
               v-slot="{ errors }"
               name='rent_price'
-              rules="required|regex:^[0-9\s]*$"
+              type="number"
             >
               <v-text-field
                 v-model="deal.rent_price"
                 label='Rent price'
                 :error-messages="errors"
                 prefix="$"
-                outlined
+
               ></v-text-field>
             </ValidationProvider>
           </v-col>
@@ -111,13 +106,13 @@
             <ValidationProvider
               v-slot="{ errors }"
               name='width'
-              rules="required|regex:^[0-9\s]*$"
+              type="number"
             >
               <v-text-field
                 v-model="deal.width"
                 label='Width'
                 :error-messages="errors"
-                outlined
+
               ></v-text-field>
             </ValidationProvider>
           </v-col>
@@ -129,13 +124,13 @@
             <ValidationProvider
               v-slot="{ errors }"
               name='length'
-              rules="required|regex:^[0-9\s]*$"
+              type="number"
             >
               <v-text-field
                 v-model="deal.length"
                 label='Length'
                 :error-messages="errors"
-                outlined
+
               ></v-text-field>
             </ValidationProvider>
           </v-col>
@@ -153,7 +148,7 @@
                 v-model="deal.area"
                 label='Area'
                 :error-messages="errors"
-                outlined
+
               ></v-text-field>
             </ValidationProvider>
           </v-col>
@@ -204,18 +199,8 @@ export default {
     ],
     record_type: [
       'Land',
-    ],
-    stage: [
-      'Qualification',
-      'Required Analysis',
-      'Propose Listing',
-      'Nigociation',
-      'Deal Close',
-      'Deal Fail',
-    ],
-    transaction_type: [
-      'Buy',
-      'Sell',
+      'Building',
+      'Land and Building'
     ],
     checkbox1: true,
     checkbox2: false,

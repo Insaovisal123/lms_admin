@@ -11,7 +11,6 @@
           <ValidationProvider
             v-slot="{ errors }"
             name='salutation'
-            rules="required"
           >
             <v-select
               v-model="contact.salutation"
@@ -70,7 +69,6 @@
               :items="gender"
               :error-messages="errors"
               data-vv-name="select"
-              require
             ></v-select>
           </ValidationProvider>
           </v-col>

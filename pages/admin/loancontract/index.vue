@@ -41,6 +41,14 @@
           <template v-slot:[`item.userId`]="{ item }">
             <v-chip @click.stop="user(item.userId)">{{ item.userId }}</v-chip>
           </template>
+          <template v-slot:[`item.status`]="{ item }">
+            <v-chip
+              :color="getColor(item.status)"
+              dark
+            >
+              {{ item.status }}
+            </v-chip>
+          </template>
           <template v-slot:[`item.actions`]="{ item }">
             <show-btn :id="item.id" path="loancontract" small />
             <edit-btn :id="item.id" path="loancontract" small />
@@ -93,15 +101,15 @@ export default {
         },
         { text: 'Property ID', value: 'property_id' },
         { text: 'Financial Institution', value: 'financial_institution' },
-        { text: 'Borrower', value: 'borrower_id' },
+        // { text: 'Borrower', value: 'borrower_id' },
         { text: 'Loan Purpose', value: 'loan_purpose' },
         { text: 'Loan Type', value: 'loan_type' },
+        { text: 'Status', value: 'status' },
         { text: 'Request Amount', value: 'request_amount' },
         { text: 'Approved Amount', value: 'approved_amount' },
         // { text: 'Disbursement Date', value: 'disbursement_date' },
         // { text: 'First Collection Date', value: 'first_collection_date' },
         // { text: 'Maturity Date', value: 'maturity_date' },
-        // { text: 'Status', value: 'status' },
         { text: 'Actions', value: 'actions' },
       ],
     }
@@ -118,6 +126,11 @@ export default {
     user(id) {
       this.$router.push(`admin/users/${id}`)
     },
+    getColor (status) {
+        if (status == 'Active') return 'blue'
+        else if (status == "In Progress") return 'orange'
+        else return 'green'
+      },
   },
 }
 </script>
