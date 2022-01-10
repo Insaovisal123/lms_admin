@@ -6,7 +6,6 @@
           <back-btn />
           <v-spacer />
           <create-btn path="/admin/loancontract" />
-          <!-- <reload-btn path="loancontracts" /> -->
         </v-card-actions>
       </v-card>
     </p>

@@ -171,7 +171,7 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer />
-      <v-btn color="primary" :disabled="invalid" @click="save()">Save</v-btn>
+      <v-btn color="success" :disabled="invalid" @click="save()">Save</v-btn>
     </v-card-actions>
   </ValidationObserver>
 </template>

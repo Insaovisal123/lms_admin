@@ -6,14 +6,14 @@
       :clipped="clipped"
       fixed
       app
-      dark
-      src="https://cdn.vuetifyjs.com/images/backgrounds/bg-2.jpg"
+      dark      
+      color="dark"
       permanent
     >
       <v-list>
         <v-list-item>
           <v-list-item-avatar>
-            <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
+            <v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
           </v-list-item-avatar>
         </v-list-item>
         
@@ -52,9 +52,6 @@
       </v-list>
       <template v-slot:append>
         <div class="pa-2">
-          <!-- <v-btn block>
-            Logout
-          </v-btn> -->
           <v-btn
               block
               @click="logout"
@@ -65,18 +62,18 @@
       </template>
     </v-navigation-drawer>
     <v-app-bar :clipped-left="clipped" fixed app
-      color="blue darken-3"
+      color="green"
       dark
     >
     <v-img
-    class="mx-2"
-    src="https://staging.z1mobile.com/assets/Z1app.png"
-    max-height="40"
-    max-width="40"
-    contain
-  ></v-img>
+      class="mx-2"
+      src="https://staging.z1mobile.com/assets/Z1app.png"
+      max-height="40"
+      max-width="40"
+      contain
+    ></v-img>
 
-  <v-toolbar-title class="ml-2">
+  <v-toolbar-title class="ml-2 font-width-bold">
     LMS
   </v-toolbar-title>
       <v-app-bar-nav-icon
@@ -98,11 +95,11 @@
         <nuxt />
       </v-container>
     </v-main>
-    <v-footer :absolute="!fixed" inset app>
+    <!-- <v-footer :absolute="!fixed" inset app>
       <span>&copy; {{ new Date().getFullYear() }} {{ author }}</span>
       <v-spacer />
       <span>v{{ version }}</span>
-    </v-footer>
+    </v-footer> -->
   </v-app>
 </template>
 

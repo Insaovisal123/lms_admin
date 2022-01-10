@@ -97,7 +97,7 @@
             <ValidationProvider
               v-slot="{ errors }"
               name='request amount'
-              rules="required|regex:^[0-9\s]*$"
+              type="number"
             >
               <v-text-field
                 v-model="loancontract.request_amount"
@@ -115,7 +115,7 @@
             <ValidationProvider
               v-slot="{ errors }"
               name='approved amount'
-              rules="required|regex:^[0-9\s]*$"
+              type="number"
             >
               <v-text-field
                 v-model="loancontract.approved_amount"
@@ -291,7 +291,7 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer />
-      <v-btn color="primary" :disabled="invalid" @click="save()">Save</v-btn>
+      <v-btn color="success" :disabled="invalid" @click="save()">Save</v-btn>
     </v-card-actions>
   </ValidationObserver>
 </template>

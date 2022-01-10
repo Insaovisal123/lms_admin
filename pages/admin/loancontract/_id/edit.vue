@@ -7,7 +7,6 @@
           <list-btn path="/admin/loancontract" />
           <v-spacer />
           <delete-btn :id="loancontract.id" path="loancontract" />
-          <!-- <reload-btn :id="loancontract.id" path="loancontracts" @reloaded="reloaded" /> -->
         </v-card-actions>
       </v-card>
     </p>

@@ -8,7 +8,6 @@
           <v-spacer />
           <edit-btn :id="loancontract.id" path="/admin/loancontract" />
           <delete-btn :id="loancontract.id" path="loancontract" />
-          <!-- <reload-btn :id="loancontract.id" path="loancontracts" @reloaded="reloaded" /> -->
         </v-card-actions>
       </v-card>
     </p>
@@ -74,6 +73,134 @@
               Status: <span class="black--text">{{loancontract.status}}</span>
             </v-card-subtitle>
 
+            <v-col
+                class="text-right mt-8"
+                cols="12"
+                md="12"
+                v-if="loancontract.status != 'Closed' && loancontract.status != 'In Progress'"
+              >
+
+             <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    color="success"
+                    dark
+                    absolute
+                    bottom
+                    right
+                    v-bind="attrs"
+                    v-on="on"
+                    @click.stop="approveLoan = true"
+                  >
+                  <span>Approved</span>
+                </v-btn>
+                </template>
+                <span>Approved Loan</span>
+              </v-tooltip>
+
+              <v-dialog
+                v-model="approveLoan"
+                max-width="400"
+              >
+                <v-card align="center" class="text-center justify-center">
+                  <v-card-text class="text-h5 pt-4">
+                    <v-icon x-large color="green">mdi-check-underline-circle</v-icon>
+                  </v-card-text>
+
+                  <v-card-text class="text-h5">
+                    <strong>
+                      Do you want to approve loan contract?
+                    </strong>
+                  </v-card-text>
+
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+
+                    <v-btn
+                      color="gray"
+                      text
+                      @click="approveLoan = false"
+                    >
+                      No
+                    </v-btn>
+
+                    <v-btn
+                      color="info darken-1"
+                      text
+                      @click="approve"
+                    >
+                      Yes
+                    </v-btn>
+                  
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+            </v-col>
+
+            <v-col
+                  class="text-right mt-8"
+                  cols="12"
+                  md="12"
+                  v-if="loancontract.status != 'Closed' && loancontract.status != 'Active'"
+                >
+
+              <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                      color="red"
+                      dark
+                      absolute
+                      bottom
+                      right
+                      v-bind="attrs"
+                      v-on="on"
+                      @click.stop="closeLoan = true"
+                    >
+                    <span>Closed</span>
+                  </v-btn>
+                  </template>
+                  <span>Closed Loan</span>
+                </v-tooltip>
+
+                <v-dialog
+                  v-model="closeLoan"
+                  max-width="400"
+                >
+                  <v-card align="center" class="text-center justify-center">
+                    <v-card-text class="text-h5 pt-4">
+                      <v-icon x-large color="green">mdi-check-underline-circle</v-icon>
+                    </v-card-text>
+
+                    <v-card-text class="text-h5">
+                      <strong>
+                        Do you want to close loan contract?
+                      </strong>
+                    </v-card-text>
+
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+
+                      <v-btn
+                        color="gray"
+                        text
+                        @click="closeLoan = false"
+                      >
+                        No
+                      </v-btn>
+
+                      <v-btn
+                        color="info darken-1"
+                        text
+                        @click="close"
+                      >
+                        Yes
+                      </v-btn>
+                    
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </v-col>
+
           </v-card>
         </v-col>
       </v-row>
@@ -87,7 +214,6 @@ import backBtn from '@/components/button/back'
 import listBtn from '@/components/button/list'
 import editBtn from '@/components/button/edit'
 import deleteBtn from '@/components/button/delete'
-import reloadBtn from '@/components/button/reload'
 
 export default {
   components: {
@@ -95,7 +221,6 @@ export default {
     listBtn,
     editBtn,
     deleteBtn,
-    reloadBtn,
   },
   data() {
     return {
@@ -103,6 +228,8 @@ export default {
         id: -1,
       },
       loancontractId: this.$route.params.id,
+      approveLoan: false,
+      closeLoan: false,
     }
   },
   computed: {
@@ -118,6 +245,14 @@ export default {
     ...mapActions('loancontracts', ['fetchList']),
     reloaded(item) {
       this.loancontract = item
+    },
+    async approve() {
+      await this.$store.dispatch('loancontracts/approve', this.loancontract.id)
+      this.$router.push('/admin/loancontract')
+    },
+    async close() {
+      await this.$store.dispatch('loancontracts/close', this.loancontract.id)
+      this.$router.push('/admin/loancontract')
     },
   },
 }

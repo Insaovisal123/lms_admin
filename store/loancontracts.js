@@ -37,6 +37,20 @@ export const mutations = {
       }
     })
   },
+  approve(state, data) {
+    state.list.forEach((item, index) => {
+      if (item.id === Number(data.id)) {
+        state.list.splice(index, 1, data)
+      }
+    })
+  },
+  close(state, data) {
+    state.list.forEach((item, index) => {
+      if (item.id === Number(data.id)) {
+        state.list.splice(index, 1, data)
+      }
+    })
+  },
 }
 
 export const actions = {
@@ -67,5 +81,21 @@ export const actions = {
       throw err
     })
     commit('delete', id)
+  },
+  async approve({ commit }, id) {
+    const response = await this.$axios
+      .$put(`${baseUrl}/approve/${id}`)
+      .catch((err) => {
+        throw err
+      })
+    commit('approve', response)
+  },
+  async close({ commit }, id) {
+    const response = await this.$axios
+      .$put(`${baseUrl}/close/${id}`)
+      .catch((err) => {
+        throw err
+      })
+    commit('close', response)
   },
 }

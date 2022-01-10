@@ -43,23 +43,17 @@
           <template v-slot:[`item.userId`]="{ item }">
             <v-chip @click.stop="user(item.userId)">{{ item.userId }}</v-chip>
           </template>
-          <template 
-            v-slot:[`item.is_sale`]="{ item }">
-            <v-chip 
-              :color="getColor(item.status)"
-              dark
-              > 
-                {{ getIsSale(item.is_sale) }}
-              </v-chip>
+          <template v-slot:[`item.is_sale`]="{ item }">
+            <v-simple-checkbox
+              v-model="item.is_sale"
+              disabled
+            ></v-simple-checkbox>
           </template>
-          <template 
-            v-slot:[`item.is_rent`]="{ item }">
-            <v-chip 
-              :color="getColor(item.status)"
-              dark
-              > 
-                {{ getIsRent(item.is_rent) }}
-              </v-chip>
+          <template v-slot:[`item.is_rent`]="{ item }">
+            <v-simple-checkbox
+              v-model="item.is_rent"
+              disabled
+            ></v-simple-checkbox>
           </template>
           <template v-slot:[`item.actions`]="{ item }">
             <show-btn :id="item.id" path="listing" small />
