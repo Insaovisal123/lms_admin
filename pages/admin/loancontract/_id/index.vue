@@ -168,7 +168,7 @@
                 >
                   <v-card align="center" class="text-center justify-center">
                     <v-card-text class="text-h5 pt-4">
-                      <v-icon x-large color="green">mdi-check-underline-circle</v-icon>
+                      <v-icon x-large color="red">mdi-close-circle</v-icon>
                     </v-card-text>
 
                     <v-card-text class="text-h5">

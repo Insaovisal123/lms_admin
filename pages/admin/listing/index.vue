@@ -55,6 +55,21 @@
               disabled
             ></v-simple-checkbox>
           </template>
+          <template v-slot:[`item.sale_price`]="{ item }">
+              ${{ item.sale_price }}
+          </template>
+          <template v-slot:[`item.rent_price`]="{ item }">
+              {{ item.rent_price }}
+          </template>
+          <template v-slot:[`item.width`]="{ item }">
+              {{ item.width }}m²
+          </template>
+          <template v-slot:[`item.length`]="{ item }">
+              {{ item.length }}m²
+          </template>
+          <template v-slot:[`item.area`]="{ item }">
+              {{ item.area }}m²
+          </template>
           <template v-slot:[`item.actions`]="{ item }">
             <show-btn :id="item.id" path="listing" small />
             <edit-btn :id="item.id" path="listing" small />
@@ -115,7 +130,8 @@ export default {
         { text: 'Rent Price', align: 'left', value: 'rent_price' },
         { text: 'Width', align: 'left', value: 'width' },
         { text: 'Length', align: 'left', value: 'length' },
-         { text: 'Address', align: 'left', value: 'address' },
+        { text: 'Area', align: 'Area', value: 'area' },
+        { text: 'Address', align: 'left', value: 'address' },
         { text: 'Actions', align: 'left', value: 'actions' },
       ],
     }

@@ -68,7 +68,7 @@
             </v-card-subtitle>
 
             <v-card-subtitle class="pb-0">
-              Area: <span class="black--text">{{listing.area}}</span>
+              Area: <span class="black--text">{{listing.area}}m²</span>
             </v-card-subtitle>
 
             <v-card-subtitle class="pb-0">

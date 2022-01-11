@@ -50,6 +50,12 @@
               {{ item.status }}
             </v-chip>
           </template>
+          <template v-slot:[`item.request_amount`]="{ item }">
+              ${{ item.request_amount }}
+          </template>
+          <template v-slot:[`item.approved_amount`]="{ item }">
+              ${{ item.approved_amount }}
+          </template>
           <template v-slot:[`item.actions`]="{ item }">
             <show-btn :id="item.id" path="loancontract" small />
             <edit-btn :id="item.id" path="loancontract" small />
